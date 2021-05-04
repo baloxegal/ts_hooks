@@ -11,7 +11,7 @@ function App() {
       <BrowserRouter>
         <Header text="Cel mai bun curs valutar din Moldova!!!"/>
         <Body/>
-        <Footer/>
+        <Footer firstName="Pavel" lastName="Berdila"/>
       </BrowserRouter>
     </div>
   );
