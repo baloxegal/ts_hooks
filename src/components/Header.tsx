@@ -1,3 +1,4 @@
+import { Grid } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -8,10 +9,23 @@ export default function Header (props: any) {
     return(
 
         <div className="App-header">
-            <ul>
-                <li><Link to='/'>Home</Link></li>
-                <li><Link to='/SignIn'>SignIN</Link></li>
-            </ul>     
+            <Grid container spacing={5}>
+                <Grid item xs={12} sm={3}>
+                    <span></span>
+                </Grid>
+                <Grid item xs={12} sm={2}>
+                    <span><Link to='/'>Home</Link></span>
+                </Grid>
+                <Grid item xs={12} sm={2}>
+                    <span><Link to='/SignIn'>SignIn</Link></span>
+                </Grid>
+                <Grid item xs={12} sm={2}>
+                    <span><Link to='/SignUp'>SignUp</Link></span>
+                </Grid>
+                <Grid item xs={12} sm={3}>
+                    <span></span>
+                </Grid>
+            </Grid>
             <h1>
                 {props.text}
             </h1>

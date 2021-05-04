@@ -1,8 +1,10 @@
 import { Grid } from '@material-ui/core';
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
+import ForgotPassword from './ForgotPassword';
 import Home from './Home';
 import Nothing from './Nothing';
 import SignIn from './SignIn';
+import SignUp from './SignUp';
 
 const Body = () => {
     
@@ -17,6 +19,8 @@ const Body = () => {
                     <Switch>
                         <Route exact path='/' component={Home}/>                        
                         <Route path='/SignIn' component={SignIn}/>
+                        <Route path='/SignUp' component={SignUp}/>
+                        <Route path='/ForgotPassword' component={ForgotPassword}/>
                         <Route component={Nothing}/>
                     </Switch>                                   
                 </Grid>
