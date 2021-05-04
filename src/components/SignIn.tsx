@@ -1,6 +1,5 @@
 import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, Link, makeStyles, TextField, Theme, Typography } from '@material-ui/core';
 import { LockOutlined } from '@material-ui/icons';
-import React from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>({
     paper: {
