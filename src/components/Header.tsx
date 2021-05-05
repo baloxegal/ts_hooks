@@ -1,5 +1,5 @@
 import { Grid } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Header (props: any) {

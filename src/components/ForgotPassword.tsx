@@ -4,16 +4,21 @@ type MotivationString = {
     motivation: string;
 }
 
- class ForgotPassword extends React.Component<MotivationString> {
+type setState = {
+    infoString: string;
+}
+
+class ForgotPassword extends React.Component<MotivationString, setState> {
 
     constructor(props: MotivationString){
         super(props);
         this.state = {
-            c: "Everything will be fine, you will remember the password",
+            infoString: "Have you forgotten the password? Everything will be fine, you will remember the password",
         };
-    }
+    }  
+    
     render() {
-        return <h3 className='App-Forgot-Password'> Forgot Password {this.props.motivation} </h3>
+        return <h3 className='App-Forgot-Password'> {this.state.infoString}</h3>
     }
 }
 
