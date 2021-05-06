@@ -14,13 +14,13 @@ export default function Header (props: any) {
                     <span></span>
                 </Grid>
                 <Grid item xs={12} sm={2}>
-                    <span><Link to='/'>Home</Link></span>
+                    <Link to='/'>Home</Link>
                 </Grid>
                 <Grid item xs={12} sm={2}>
-                    <span><Link to='/SignIn'>SignIn</Link></span>
+                    <Link to='/SignIn'>SignIn</Link>
                 </Grid>
                 <Grid item xs={12} sm={2}>
-                    <span><Link to='/SignUp'>SignUp</Link></span>
+                    <Link to='/SignUp'>SignUp</Link>
                 </Grid>
                 <Grid item xs={12} sm={3}>
                     <span></span>

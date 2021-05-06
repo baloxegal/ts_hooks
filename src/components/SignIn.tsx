@@ -1,5 +1,6 @@
-import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, Link, makeStyles, TextField, Theme, Typography } from '@material-ui/core';
+import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, makeStyles, TextField, Theme, Typography } from '@material-ui/core';
 import { LockOutlined } from '@material-ui/icons';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>({
     paper: {
@@ -36,7 +37,7 @@ export default function SignIn(){
                 <form className={classes.form} noValidate>
                     <TextField variant="outlined" margin="normal" required fullWidth
                         id="email" label="Email Address" name="email" autoComplete="email"
-                        autoFocus />
+                        autoFocus/>
                     <TextField variant="outlined" margin="normal" required fullWidth
                         name="password" label="Password" type="password" id="password" 
                         autoComplete="curent password"/>
@@ -46,16 +47,22 @@ export default function SignIn(){
                         className={classes.submit}>
                         Sign In
                     </Button>
-                    <Grid container>
-                        <Grid item xs>
-                            <Link href="/ForgotPassword" variant="body2">
-                                Forgot password?
+                    <Grid container  spacing={4}>
+                        <Grid item xs={12} sm={1}>
+                            <span></span>
+                        </Grid>
+                        <Grid item xs={12} sm={5}>
+                            <Link to="/ForgotPassword">                                                      
+                                <p>Forgot password?</p>
                             </Link>
                         </Grid>
-                        <Grid item>
-                            <Link href="/SignUp" variant="body2">
-                                "Don't have an account? Sign Up"
+                        <Grid item xs={12} sm={5}>
+                            <Link to="/SignUp">                                
+                                <p>Don't have an account? Sign Up"</p>
                             </Link>
+                        </Grid>
+                        <Grid item xs={12} sm={1}>
+                            <span></span>
                         </Grid>
                     </Grid>
                 </form>
