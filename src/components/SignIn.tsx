@@ -1,6 +1,7 @@
 import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, makeStyles, TextField, Theme, Typography } from '@material-ui/core';
 import { LockOutlined } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
+import {login} from "../api/auth";
 
 const useStyles = makeStyles((theme: Theme) =>({
     paper: {
@@ -24,6 +25,17 @@ const useStyles = makeStyles((theme: Theme) =>({
 
 export default function SignIn(){
     const classes = useStyles();
+    
+    const handleSubmit = (e : any) => {
+        e.preventDefault();
+        const email=e.target.email.value;
+        //alert(email);
+        const password=e.target.password.value;
+        //alert(password);
+        const body = {userName: email, password: email};
+        login(body);
+    }
+    
     return(
         <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -34,7 +46,7 @@ export default function SignIn(){
                 <Typography component="h1" variant="h5">
                     Sign in
                 </Typography>
-                <form className={classes.form} noValidate>
+                <form className={classes.form} noValidate onSubmit={handleSubmit}>
                     <TextField variant="outlined" margin="normal" required fullWidth
                         id="email" label="Email Address" name="email" autoComplete="email"
                         autoFocus/>
