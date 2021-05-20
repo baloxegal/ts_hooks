@@ -18,5 +18,6 @@ export const login = async (body : any) => {
         body: JSON.stringify(body)
     });
     let data = await res.json();
-    console.log(data);
+    data.status = res.status;
+    return data;
 }

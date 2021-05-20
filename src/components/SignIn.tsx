@@ -1,5 +1,7 @@
 import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, makeStyles, TextField, Theme, Typography } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 import { LockOutlined } from '@material-ui/icons';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {login} from "../api/auth";
 
@@ -26,15 +28,19 @@ const useStyles = makeStyles((theme: Theme) =>({
 export default function SignIn(){
     const classes = useStyles();
     
-    const handleSubmit = (e : any) => {
+    const handleSubmit = async (e : any) => {
         e.preventDefault();
         const email=e.target.email.value;
         //alert(email);
         const password=e.target.password.value;
         //alert(password);
         const body = {userName: email, password: email};
-        login(body);
+        const data = await login(body);
+        setData(data);
+        console.log(data);
     }
+
+    const [data, setData] = useState({message : null, status : 0});
     
     return(
         <Container component="main" maxWidth="xs">
@@ -77,8 +83,10 @@ export default function SignIn(){
                             <span></span>
                         </Grid>
                     </Grid>
+                    {data?.status && data.status!=200 && <Alert severity="error">{data?.message}</Alert>}
+                    {data?.status && data.status===200 && <Alert severity="success">{data?.message}</Alert>}
                 </form>
-            </div> 
+            </div>             
             <Box mt={8}/>
         </Container>
     )
