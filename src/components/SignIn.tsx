@@ -30,17 +30,17 @@ export default function SignIn(){
     
     const handleSubmit = async (e : any) => {
         e.preventDefault();
-        const email=e.target.email.value;
+        const userName = e.target.userName.value;
         //alert(email);
         const password=e.target.password.value;
         //alert(password);
-        const body = {userName: email, password: email};
-        const data = await login(body);
-        setData(data);
-        console.log(data);
+        const loginRequest = {userName: userName, password: password};
+        const responceData = await login(loginRequest);
+        setData(responceData);
+        console.log(responceData);
     }
 
-    const [data, setData] = useState({message : null, status : 0});
+    const [data, setData] = useState({message : null, status : null});
     
     return(
         <Container component="main" maxWidth="xs">
@@ -53,11 +53,14 @@ export default function SignIn(){
                     Sign in
                 </Typography>
                 <form className={classes.form} noValidate onSubmit={handleSubmit}>
-                    <TextField variant="outlined" margin="normal" required fullWidth
+                    {/* <TextField variant="outlined" margin="normal" required fullWidth
                         id="email" label="Email Address" name="email" autoComplete="email"
+                        autoFocus/> */}
+                    <TextField variant="outlined" margin="normal" required fullWidth
+                        id="userName" label="User Name" name="userName" autoComplete="userName"
                         autoFocus/>
                     <TextField variant="outlined" margin="normal" required fullWidth
-                        name="password" label="Password" type="password" id="password" 
+                        id="password" label="Password" name="password" type="password"  
                         autoComplete="curent password"/>
                     <FormControlLabel control={<Checkbox value="remember" color="primary" />}
                         label="Remember me" />
@@ -83,7 +86,7 @@ export default function SignIn(){
                             <span></span>
                         </Grid>
                     </Grid>
-                    {data?.status && data.status!=200 && <Alert severity="error">{data?.message}</Alert>}
+                    {data?.status && data.status!==200 && <Alert severity="error">{data?.message}</Alert>}
                     {data?.status && data.status===200 && <Alert severity="success">{data?.message}</Alert>}
                 </form>
             </div>             
