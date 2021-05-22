@@ -1,3 +1,4 @@
+import {fetchData} from "./proxy"
 
 export const getSecret = (cb: any) => {
     fetch("/user.json").then((res) => {        
@@ -9,15 +10,10 @@ export const getSecret = (cb: any) => {
     });
 }
 
-export const login = async (body : any) => {
-    let res = await fetch("http://localhost:58691/api/ApplicationUser/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-          },
-        body: JSON.stringify(body)
-    });
-    let data = await res.json();
-    data.status = res.status;
-    return data;
+export const login = async (body : any) => {       
+    return await fetchData(body, "/ApplicationUser/login", "POST");
+}
+
+export const register = async (body : any) => {       
+    return await fetchData(body, "/ApplicationUser/register", "POST");
 }

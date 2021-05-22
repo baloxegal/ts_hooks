@@ -1,8 +1,9 @@
-import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, makeStyles, TextField, Theme, Typography } from '@material-ui/core';
-import Alert from '@material-ui/lab/Alert';
+import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, makeStyles, TextField, Theme, Typography, Link } from '@material-ui/core';
+import Alert from './Alert';
+import {mapStatus} from '../api/proxy';
 import { LockOutlined } from '@material-ui/icons';
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link as RouterLink} from 'react-router-dom';
 import {login} from "../api/auth";
 
 const useStyles = makeStyles((theme: Theme) =>({
@@ -53,12 +54,9 @@ export default function SignIn(){
                     Sign in
                 </Typography>
                 <form className={classes.form} noValidate onSubmit={handleSubmit}>
-                    {/* <TextField variant="outlined" margin="normal" required fullWidth
-                        id="email" label="Email Address" name="email" autoComplete="email"
-                        autoFocus/> */}
                     <TextField variant="outlined" margin="normal" required fullWidth
-                        id="userName" label="User Name" name="userName" autoComplete="userName"
-                        autoFocus/>
+                        id="userName" label="User Name" name="userName"
+                        autoComplete="username" autoFocus/>
                     <TextField variant="outlined" margin="normal" required fullWidth
                         id="password" label="Password" name="password" type="password"  
                         autoComplete="curent password"/>
@@ -68,26 +66,25 @@ export default function SignIn(){
                         className={classes.submit}>
                         Sign In
                     </Button>
-                    <Grid container  spacing={4}>
-                        <Grid item xs={12} sm={1}>
-                            <span></span>
+                    
+                    <Grid container>
+                        <Grid item xs>
+                            <Link component={RouterLink} to="/ForgotPassword" variant="body2">                                                      
+                                Forgot password?
+                            </Link>                            
                         </Grid>
-                        <Grid item xs={12} sm={5}>
-                            <Link to="/ForgotPassword">                                                      
-                                <p>Forgot password?</p>
+                        <Grid item>
+                            <Link component={RouterLink} to="/SignUp" variant="body2">                                
+                                Don't have an account? Sign Up"
                             </Link>
-                        </Grid>
-                        <Grid item xs={12} sm={5}>
-                            <Link to="/SignUp">                                
-                                <p>Don't have an account? Sign Up"</p>
-                            </Link>
-                        </Grid>
-                        <Grid item xs={12} sm={1}>
-                            <span></span>
                         </Grid>
                     </Grid>
-                    {data?.status && data.status!==200 && <Alert severity="error">{data?.message}</Alert>}
-                    {data?.status && data.status===200 && <Alert severity="success">{data?.message}</Alert>}
+
+                    {/* {data.status && data.status!==200 && <Alert severity="error">{data?.message}</Alert>}
+                    {data.status && data.status===200 && <Alert severity="success">{data?.message}</Alert>} */}
+
+                    <Alert type = {mapStatus(data.status)} message = {data.message}/>
+
                 </form>
             </div>             
             <Box mt={8}/>

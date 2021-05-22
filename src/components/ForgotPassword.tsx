@@ -2,7 +2,7 @@ import { Button, Container, makeStyles, Theme } from '@material-ui/core';
 import React from 'react';
 import {getSecret} from "../api/auth";
 
-const memebersStyle = makeStyles((theme: Theme) =>({
+const membersStyle = makeStyles((theme: Theme) =>({
     submit: {
         margin: theme.spacing(3,0,2)
     }
@@ -25,7 +25,7 @@ class ForgotPassword extends React.Component<MotivationString, setState> {
         this.state = {
             infoString: "Have you forgotten the password? Everything will be fine, you will remember the password",
             styles: () => {
-                memebersStyle()
+                membersStyle()
             },
             data: null,
         };        
@@ -43,7 +43,6 @@ class ForgotPassword extends React.Component<MotivationString, setState> {
             <Container maxWidth="xs">
                 <h3 className='App-Forgot-Password'> {this.state.infoString}</h3>
                 <h4>
-
                     {this.state.data?.secret}
                 </h4>
                 <Button href="/SignIn" type="submit" fullWidth variant="contained" color="primary" className={this.state.styles.submit}>
