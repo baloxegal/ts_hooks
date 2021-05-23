@@ -27,6 +27,12 @@ export const hasToken = () => {
 export const getUser = async () => {
     const token =  localStorage.getItem("token");    
     let data = await fetchData(null, "/UserProfile", "GET", {"Authorization" : `Bearer ${token}`});  
-    console.log(data);  
+    localStorage.setItem('user', JSON.stringify(data));
+    console.log(data); 
     return data;
+}
+
+export const getUserName = () => {
+    let user = JSON.parse(localStorage.getItem("user")??"null");
+    return user?.userName??null;
 }
