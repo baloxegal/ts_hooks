@@ -112,7 +112,7 @@ export default function PersistentDrawerLeft() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Persistent drawer
+            Bubble Data
           </Typography>
         </Toolbar>
       </AppBar>
@@ -156,10 +156,10 @@ export default function PersistentDrawerLeft() {
       >
         <div className={classes.drawerHeader} />
         <Typography paragraph>
-          
+          dykdgkftukhjkhlilh 
         </Typography>
         <Typography paragraph>
-          
+          dhdfjhejetyjetyite
         </Typography>
       </main>
     </div>

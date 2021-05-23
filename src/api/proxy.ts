@@ -5,14 +5,21 @@ const responceStatuses = {
 
 const urlBase = "http://localhost:58691/api";
 
-export const fetchData = async (body : any, path : string, method : string = "GET") =>{
-    let res = await fetch(`${urlBase}${path}`, {
+export const fetchData = async (body : any, path : string, method : string = "GET", headers : object = {}) =>{
+    let options = {
         method: method,
-        headers: {
+        headers: Object.assign({
             "Content-Type": "application/json"
-          },
-        body: JSON.stringify(body)
-    });
+          }, headers),
+        //   credentials: 'include', // include, *same-origin, omit
+        // body: JSON.stringify(body)
+    };
+
+    if(body != null){
+        options = Object.assign(options, {body: JSON.stringify(body)})
+    }
+
+    let res = await fetch(`${urlBase}${path}`, options);
     let data = await res.json();
     data.status = res.status;
     return data;
