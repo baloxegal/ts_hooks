@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -28,11 +28,12 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function MenuAppBar() {
+export default function MenuAppBar(props : any) {  
   const classes = useStyles();
   const [auth, setAuth] = React.useState(hasToken());
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const [userName, setUserName] = React.useState(getUserName());
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAuth(event.target.checked);
@@ -44,9 +45,7 @@ export default function MenuAppBar() {
 
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
-  const [userName, setUserName] = React.useState(getUserName());
+  }; 
 
   return (
     <div className={classes.root}>
@@ -62,7 +61,7 @@ export default function MenuAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            Photos
+            Bubble Network
           </Typography>
           {auth && (
             <div>

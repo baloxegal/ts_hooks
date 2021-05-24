@@ -1,14 +1,15 @@
-import { Grid } from '@material-ui/core';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import MenuAppBar from './MenuAppBar'
 
-export default function Header (props: any) {
+export default function Header () {
 
-    const date = Data();
+    // const date = DateData();
+
+    useEffect(() => {
+        document.title = "Bubble";
+     });
 
     return(
-
         <div className="App-header">
             <MenuAppBar/>
         </div>
@@ -16,14 +17,9 @@ export default function Header (props: any) {
 
 }
 
-const Data = () => {
-    var today = new Date();
-    var date = today.getDate()+'.'+(today.getMonth()+1)+'.'+today.getFullYear();
-    const[dateToday, setCount] = useState(date);
-
-    useEffect(() =>{
-       document.title = "Exchange";
-    });
-
-    return dateToday;    
-}
+// const DateData = () => {
+//     var today = new Date();
+//     var date = today.getDate()+'.'+(today.getMonth()+1)+'.'+today.getFullYear();
+//     const[dateToday, setCount] = useState(date);
+//     return dateToday;    
+// }

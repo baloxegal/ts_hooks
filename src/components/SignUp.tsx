@@ -1,6 +1,6 @@
-import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, makeStyles, TextField, Theme, Typography, Link } from '@material-ui/core';
+import { Avatar, Box, Button, Container, CssBaseline, Grid, makeStyles, TextField, Theme, Typography, Link } from '@material-ui/core';
 import Alert from './Alert';
-import {mapStatus} from '../api/proxy';
+import {resStatus} from '../api/proxy';
 import { LockOutlined } from '@material-ui/icons';
 import { useState } from 'react';
 import { Link as RouterLink} from 'react-router-dom';
@@ -95,7 +95,7 @@ export default function SignUp(){
                         </Grid>
                     </Grid>
 
-                    <Alert type = {mapStatus(data.status)} message = {data.message}/>
+                    <Alert type = {resStatus(data.status)} message = {data.message}/>
 
                 </form>
             </div>             

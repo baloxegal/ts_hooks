@@ -1,7 +1,7 @@
-const responceStatuses = {
-    200 : "success",
-    400 : "error"
-}
+// const responceStatuses = {
+//     200 : "success",
+//     400 : "error"
+// }
 
 const urlBase = "http://localhost:58691/api";
 
@@ -11,8 +11,6 @@ export const fetchData = async (body : any, path : string, method : string = "GE
         headers: Object.assign({
             "Content-Type": "application/json"
           }, headers),
-        //   credentials: 'include', // include, *same-origin, omit
-        // body: JSON.stringify(body)
     };
 
     if(body != null){
@@ -25,7 +23,7 @@ export const fetchData = async (body : any, path : string, method : string = "GE
     return data;
 }
 
-export const mapStatus = (code : any) => {
+export const resStatus = (code : any) => {
     if(code === 200)
         return "success";
     if(code === 400)

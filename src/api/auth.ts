@@ -1,15 +1,5 @@
 import {fetchData} from "./proxy"
 
-export const getSecret = (cb: any) => {
-    fetch("/user.json").then((res) => {        
-        res.json().then((data)=>{
-            cb(data);
-        })
-    }).catch(()=>{
-        console.log("Error");
-    });
-}
-
 export const login = async (body : any) => {     
     let data = await fetchData(body, "/ApplicationUser/login", "POST");
     localStorage.setItem("token", data.token)

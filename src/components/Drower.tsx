@@ -156,10 +156,10 @@ export default function PersistentDrawerLeft() {
       >
         <div className={classes.drawerHeader} />
         <Typography paragraph>
-          dykdgkftukhjkhlilh 
+           
         </Typography>
         <Typography paragraph>
-          dhdfjhejetyjetyite
+          
         </Typography>
       </main>
     </div>

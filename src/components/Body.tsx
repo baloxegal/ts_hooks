@@ -9,11 +9,10 @@ import SignUp from './SignUp';
 const Body = () => {
     
     return (
-        <div className="App-body">            
-            
+        <div className="App-body">
             <Grid container spacing={3}>
                 <Grid item xs={12} sm={2}>
-                    <p>Advertising Space</p>
+                    Advertising Space
                 </Grid>                    
                 <Grid item xs={12} sm={8}>
                     <Switch>
@@ -25,10 +24,9 @@ const Body = () => {
                     </Switch>                                   
                 </Grid>
                 <Grid item xs={12} sm={2}>
-                    <p>Advertising Space</p>
+                    Advertising Space
                 </Grid>
-            </Grid>      
-                        
+            </Grid>    
         </div>        
     )
 }

@@ -1,6 +1,6 @@
 import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, makeStyles, TextField, Theme, Typography, Link } from '@material-ui/core';
 import Alert from './Alert';
-import {mapStatus} from '../api/proxy';
+import {resStatus} from '../api/proxy';
 import { LockOutlined } from '@material-ui/icons';
 import { useState } from 'react';
 import { Link as RouterLink} from 'react-router-dom';
@@ -32,9 +32,7 @@ export default function SignIn(){
     const handleSubmit = async (e : any) => {
         e.preventDefault();
         const userName = e.target.userName.value;
-        //alert(email);
         const password=e.target.password.value;
-        //alert(password);
         const loginRequest = {userName: userName, password: password};
         const responceData = await login(loginRequest);
         setData(responceData);
@@ -83,7 +81,7 @@ export default function SignIn(){
                     {/* {data.status && data.status!==200 && <Alert severity="error">{data?.message}</Alert>}
                     {data.status && data.status===200 && <Alert severity="success">{data?.message}</Alert>} */}
 
-                    <Alert type = {mapStatus(data.status)} message = {data.message}/>
+                    <Alert type = {resStatus(data.status)} message = {data.message}/>
 
                 </form>
             </div>             

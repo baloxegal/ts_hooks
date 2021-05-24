@@ -1,6 +1,6 @@
 import { Button, Container, makeStyles, Theme } from '@material-ui/core';
 import React from 'react';
-import {getSecret} from "../api/auth";
+import { Link } from 'react-router-dom';
 
 const membersStyle = makeStyles((theme: Theme) =>({
     submit: {
@@ -31,23 +31,25 @@ class ForgotPassword extends React.Component<MotivationString, setState> {
         };        
     }
 
-    componentDidMount(){
-        getSecret((data: any)=>{
-            console.log(data);
-            this.setState({data: data})
-        });
-    }
+    // componentDidMount(){
+    //     getSecret((data: any)=>{
+    //         console.log(data);
+    //         this.setState({data: data})
+    //     });
+    // }
 
     render() {
         return (
             <Container maxWidth="xs">
-                <h3 className='App-Forgot-Password'> {this.state.infoString}</h3>
-                <h4>
-                    {this.state.data?.secret}
-                </h4>
-                <Button href="/SignIn" type="submit" fullWidth variant="contained" color="primary" className={this.state.styles.submit}>
+                <h3 className='App-Forgot-Password'> {this.state.infoString}</h3>                
+                <Button to="/SignIn" component={Link} type="submit" fullWidth variant="contained" color="primary" className={this.state.styles.submit}>
                     I have remembered the password!!!                                        
                 </Button>
+
+                {/* <h4>
+                    {this.state.data?.secret}
+                </h4> */}
+
             </Container>
         )
     }
