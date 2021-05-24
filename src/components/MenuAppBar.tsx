@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -13,11 +13,34 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { Link } from 'react-router-dom';
 import { getUserName, hasToken } from '../api/auth';
+import { Divider, Drawer, List, ListItem, ListItemIcon, ListItemText, useTheme } from '@material-ui/core';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import {AuthContext} from '../contexts/AuthProvider'
+
+const drawerWidth = 240;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    drawer: {
+      width: drawerWidth,
+      flexShrink: 0,
+    },
+    drawerPaper: {
+      width: drawerWidth,
+    },
     root: {
       flexGrow: 1,
+    },
+    drawerHeader: {
+      display: 'flex',
+      alignItems: 'center',
+      padding: theme.spacing(0, 1),
+      // necessary for content to be below app bar
+      ...theme.mixins.toolbar,
+      justifyContent: 'flex-end',
     },
     menuButton: {
       marginRight: theme.spacing(2),
@@ -33,7 +56,10 @@ export default function MenuAppBar(props : any) {
   const [auth, setAuth] = React.useState(hasToken());
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const [userName, setUserName] = React.useState(getUserName());
+  const [userName, setUserName] = React.useState(getUserName());  
+  const theme = useTheme();
+  const [openDrower, setOpenDrower] = React.useState(false);
+  const [user] = useContext(AuthContext);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAuth(event.target.checked);
@@ -47,6 +73,14 @@ export default function MenuAppBar(props : any) {
     setAnchorEl(null);
   }; 
 
+  const handleDrawerOpen = () => {
+    setOpenDrower(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpenDrower(false);
+  };
+
   return (
     <div className={classes.root}>
       <FormGroup>
@@ -57,7 +91,7 @@ export default function MenuAppBar(props : any) {
       </FormGroup>
       <AppBar position="static">
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+          <IconButton onClick={handleDrawerOpen} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
@@ -72,7 +106,7 @@ export default function MenuAppBar(props : any) {
                 onClick={handleMenu}
                 color="inherit"
               >
-                <AccountCircle /> {userName}
+                <AccountCircle /> {user.name}
               </IconButton>
               <Menu
                 id="menu-appbar"
@@ -96,6 +130,39 @@ export default function MenuAppBar(props : any) {
           )}
         </Toolbar>
       </AppBar>
+      <Drawer
+        className={classes.drawer}
+        variant="persistent"
+        anchor="left"
+        open={openDrower}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        <div className={classes.drawerHeader}>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          </IconButton>
+        </div>
+        <Divider />
+        <List>
+          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
     </div>
   );
 }

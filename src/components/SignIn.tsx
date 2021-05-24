@@ -2,9 +2,10 @@ import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel
 import Alert from './Alert';
 import {resStatus} from '../api/proxy';
 import { LockOutlined } from '@material-ui/icons';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link as RouterLink} from 'react-router-dom';
 import {login} from "../api/auth";
+import { AuthContext } from '../contexts/AuthProvider';
 
 const useStyles = makeStyles((theme: Theme) =>({
     paper: {
@@ -29,13 +30,18 @@ const useStyles = makeStyles((theme: Theme) =>({
 export default function SignIn(){
     const classes = useStyles();
     
+    const user = useContext(AuthContext);
+    
+
     const handleSubmit = async (e : any) => {
         e.preventDefault();
         const userName = e.target.userName.value;
         const password=e.target.password.value;
         const loginRequest = {userName: userName, password: password};
         const responceData = await login(loginRequest);
-        setData(responceData);
+        
+        //setUser(responceData);
+
         console.log(responceData);
     }
 

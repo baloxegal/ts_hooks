@@ -5,10 +5,11 @@ import Footer from './Footer';
 import { BrowserRouter } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getUser } from '../api/auth';
+import {AuthProvider} from '../contexts/AuthProvider'
 
 function App() {
 
-  // const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {  
     getUser();
@@ -16,11 +17,13 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <Header/>
-        <Body/>
-        <Footer firstName="Balan" lastName="Valeriu"/>
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <Header/>
+          <Body/>
+          <Footer firstName="Balan" lastName="Valeriu"/>
+        </BrowserRouter>
+      </AuthProvider>
     </div>
   );
 }
