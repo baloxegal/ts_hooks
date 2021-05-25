@@ -1,18 +1,13 @@
 import {fetchData} from "./proxy"
-import {AuthContext} from '../contexts/AuthProvider'
-import { useContext } from "react";
 
 export const login = async (body : any) => {
          
-    let data = await fetchData(body, "/ApplicationUser/login", "POST");
-    localStorage.setItem("token", data.token)
-    let userData = await getUser();
-    
+    let data = await fetchData(body, "/AuthenticationUser/login", "POST");    
     return data;
 }
 
 export const register = async (body : any) => {       
-    return await fetchData(body, "/ApplicationUser/register", "POST");
+    return await fetchData(body, "/AuthenticationUser/register", "POST");
 }
 
 export const hasToken = () => {

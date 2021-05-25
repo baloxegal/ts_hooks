@@ -4,18 +4,26 @@ interface User{
     name : string;
 }
 
-export type AuthContextType = {
+export type UserContextType = {
     user : User;
     setUser: (user: User) => void;
 }
 
-const user = {};
+export type TokenContextType = {
+    token : any;
+    setToken: (token: any) => void;
+}
 
-export const AuthContext = createContext(user);
+export const UserContext = createContext<UserContextType>({
+    user : {name: ""}, setUser: () =>{}});
+
+export const TokenContext = createContext<TokenContextType>({
+        token : null, setToken: () =>{}});
 
 export const AuthProvider = (props : any) => {
-    const [user, setUser] = useState({name : "Vasea"});
+    //const [user, setUser] = useState({name : "Vasea"});
+    const [token, setToken] = useState(null);
     return(
-        <AuthContext.Provider value = {[user, setUser]}>{props.children}</AuthContext.Provider>
+        <TokenContext.Provider value = {{token, setToken}}>{props.children}</TokenContext.Provider>
     )
 }

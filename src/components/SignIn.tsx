@@ -5,7 +5,7 @@ import { LockOutlined } from '@material-ui/icons';
 import { useContext, useState } from 'react';
 import { Link as RouterLink} from 'react-router-dom';
 import {login} from "../api/auth";
-import { AuthContext } from '../contexts/AuthProvider';
+import { TokenContext } from '../contexts/AuthProvider';
 
 const useStyles = makeStyles((theme: Theme) =>({
     paper: {
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>({
 export default function SignIn(){
     const classes = useStyles();
     
-    const user = useContext(AuthContext);
+    const {setToken} = useContext(TokenContext);
     
 
     const handleSubmit = async (e : any) => {
@@ -39,10 +39,10 @@ export default function SignIn(){
         const password=e.target.password.value;
         const loginRequest = {userName: userName, password: password};
         const responceData = await login(loginRequest);
-        
+        const {token} = await responceData;
+        setToken(token);
+        //console.log(token, responceData);
         //setUser(responceData);
-
-        console.log(responceData);
     }
 
     const [data, setData] = useState({message : null, status : null});

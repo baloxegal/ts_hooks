@@ -18,7 +18,7 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import {AuthContext} from '../contexts/AuthProvider'
+import {TokenContext} from '../contexts/AuthProvider'
 
 const drawerWidth = 240;
 
@@ -59,7 +59,7 @@ export default function MenuAppBar(props : any) {
   const [userName, setUserName] = React.useState(getUserName());  
   const theme = useTheme();
   const [openDrower, setOpenDrower] = React.useState(false);
-  const [user] = useContext(AuthContext);
+  const {token, setToken} = useContext(TokenContext);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAuth(event.target.checked);
@@ -106,10 +106,30 @@ export default function MenuAppBar(props : any) {
                 onClick={handleMenu}
                 color="inherit"
               >
-                <AccountCircle /> {user.name}
+                <AccountCircle /> {token? "user" : ""}
               </IconButton>
+              {!token?
               <Menu
-                id="menu-appbar"
+                id="menu-anonymus"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={open}
+                onClose={handleClose}
+              > 
+                <MenuItem to="/SignIn" component={Link} >SigIn</MenuItem>
+                <MenuItem to="/SignUp" component={Link} >SignUp</MenuItem>                               
+              </Menu>
+              :
+              <Menu
+                id="menu-user"
                 anchorEl={anchorEl}
                 anchorOrigin={{
                   vertical: 'top',
@@ -123,13 +143,19 @@ export default function MenuAppBar(props : any) {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem to="/SignIn" component={Link} >SigIn</MenuItem>
-                <MenuItem to="/SignUp" component={Link} >SignUp</MenuItem>
+
+                <MenuItem to="/UserWall" component={Link} > My Wall </MenuItem>
+
+                <MenuItem onClick={()=>{setToken(null)}}>SigOut</MenuItem>                
+                                             
               </Menu>
+              } 
             </div>
           )}
         </Toolbar>
       </AppBar>
+
+      {!token ? null :      
       <Drawer
         className={classes.drawer}
         variant="persistent"
@@ -163,6 +189,8 @@ export default function MenuAppBar(props : any) {
           ))}
         </List>
       </Drawer>
+      }
+
     </div>
   );
 }
