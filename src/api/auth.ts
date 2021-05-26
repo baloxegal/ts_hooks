@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { TokenContext } from "../contexts/AuthProvider";
 import {fetchData} from "./proxy"
 
 export const login = async (body : any) => {
@@ -25,4 +27,9 @@ export const getUser = async () => {
 export const getUserName = () => {
     let user = JSON.parse(localStorage.getItem("user")??"null");
     return user?.userName??null;
+}
+
+export const IsAuthenticated = () => {
+    const {token} = useContext(TokenContext);
+    return token? true : false;
 }

@@ -45,11 +45,6 @@ class ForgotPassword extends React.Component<MotivationString, setState> {
                 <Button to="/SignIn" component={Link} type="submit" fullWidth variant="contained" color="primary" className={this.state.styles.submit}>
                     I have remembered the password!!!                                        
                 </Button>
-
-                {/* <h4>
-                    {this.state.data?.secret}
-                </h4> */}
-
             </Container>
         )
     }

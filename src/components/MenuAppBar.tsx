@@ -13,12 +13,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { Link } from 'react-router-dom';
 import { getUserName, hasToken } from '../api/auth';
-import { Divider, Drawer, List, ListItem, ListItemIcon, ListItemText, useTheme } from '@material-ui/core';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import { useTheme } from '@material-ui/core';
 import {TokenContext} from '../contexts/AuthProvider'
+import {IsAuthenticated} from '../api/auth'
+import SideBar from './SideBar';
 
 const drawerWidth = 240;
 
@@ -106,9 +104,9 @@ export default function MenuAppBar(props : any) {
                 onClick={handleMenu}
                 color="inherit"
               >
-                <AccountCircle /> {token? "user" : ""}
+                <AccountCircle /> {IsAuthenticated()? "user" : ""}
               </IconButton>
-              {!token?
+              {!IsAuthenticated()?
               <Menu
                 id="menu-anonymus"
                 anchorEl={anchorEl}
@@ -143,54 +141,17 @@ export default function MenuAppBar(props : any) {
                 open={open}
                 onClose={handleClose}
               >
-
                 <MenuItem to="/UserWall" component={Link} > My Wall </MenuItem>
-
-                <MenuItem onClick={()=>{setToken(null)}}>SigOut</MenuItem>                
-                                             
+                <MenuItem onClick={()=>{setToken(null)}}>SigOut</MenuItem> 
               </Menu>
               } 
             </div>
           )}
         </Toolbar>
       </AppBar>
-
-      {!token ? null :      
-      <Drawer
-        className={classes.drawer}
-        variant="persistent"
-        anchor="left"
-        open={openDrower}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
-        </div>
-        <Divider />
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
+      {!IsAuthenticated() ? null :      
+        <SideBar openDrower={openDrower}></SideBar>
       }
-
     </div>
   );
 }

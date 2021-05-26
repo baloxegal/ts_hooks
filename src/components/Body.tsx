@@ -7,11 +7,11 @@ import Nothing from './Nothing';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import UserWall from './UserWall';
-import {useContext} from 'react';
+import {IsAuthenticated} from '../api/auth'
+import WriteMessage from './WriteMessage';
+import CreateEvent from './CreateEvent';
 
 const Body = () => {
-
-    const {token} = useContext(TokenContext);
     
     return (
         <div className="App-body">
@@ -23,14 +23,15 @@ const Body = () => {
                     <Switch>
                         <Route exact path='/' component={Home}/>                        
                         <Route path='/SignIn' component={SignIn}> 
-                            {token? <Redirect to="/UserWall" /> : undefined}
+                            {IsAuthenticated()? <Redirect to="/UserWall" /> : undefined}
                         </Route>
                         <Route path='/SignUp' component={SignUp}/>
                         <Route path='/UserWall' component={UserWall}> 
-                        {!token? <Redirect to="/SignIn" /> : undefined}
+                            {!IsAuthenticated()? <Redirect to="/SignIn" /> : undefined}
                         </Route>
-                        <Route path='/ForgotPassword' component={ForgotPassword}/>                    
-                        
+                        <Route path='/ForgotPassword' component={ForgotPassword}/> 
+                        <Route path='/WriteMessage' component={WriteMessage}/>
+                        <Route path='/CreateEvent' component={CreateEvent}/>                
                         <Route component={Nothing}/>
                     </Switch>                                   
                 </Grid>

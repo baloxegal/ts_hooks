@@ -41,8 +41,6 @@ export default function SignIn(){
         const responceData = await login(loginRequest);
         const {token} = await responceData;
         setToken(token);
-        //console.log(token, responceData);
-        //setUser(responceData);
     }
 
     const [data, setData] = useState({message : null, status : null});
@@ -83,9 +81,6 @@ export default function SignIn(){
                             </Link>
                         </Grid>
                     </Grid>
-
-                    {/* {data.status && data.status!==200 && <Alert severity="error">{data?.message}</Alert>}
-                    {data.status && data.status===200 && <Alert severity="success">{data?.message}</Alert>} */}
 
                     <Alert type = {resStatus(data.status)} message = {data.message}/>
 
