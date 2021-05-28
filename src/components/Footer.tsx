@@ -3,8 +3,8 @@ type Author = {
     lastName: string;
 }
 
-export default function Footer (props: Author){
+export default function Footer (){
     return(
-        <h3 className='App-footer'> @ {props.firstName} {props.lastName} </h3>
+        <h3 className='App-footer'> </h3>
     )
 }

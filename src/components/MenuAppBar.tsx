@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -12,9 +12,9 @@ import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { Link } from 'react-router-dom';
-import { getUserName, hasToken } from '../api/auth';
+import { GetUser, getUserName, hasToken } from '../api/auth';
 import { useTheme } from '@material-ui/core';
-import {TokenContext} from '../contexts/AuthProvider'
+import {TokenContext, UserContext} from '../contexts/AuthProvider'
 import {IsAuthenticated} from '../api/auth'
 import SideBar from './SideBar';
 
@@ -54,10 +54,10 @@ export default function MenuAppBar(props : any) {
   const [auth, setAuth] = React.useState(hasToken());
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const [userName, setUserName] = React.useState(getUserName());  
   const theme = useTheme();
   const [openDrower, setOpenDrower] = React.useState(false);
   const {token, setToken} = useContext(TokenContext);
+  const {user, setUser} = useContext(UserContext);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAuth(event.target.checked);
@@ -81,21 +81,15 @@ export default function MenuAppBar(props : any) {
 
   return (
     <div className={classes.root}>
-      <FormGroup>
-        <FormControlLabel
-          control={<Switch checked={auth} onChange={handleChange} aria-label="login switch" />}
-          label={auth ? 'Logout' : 'Login'}
-        />
-      </FormGroup>
       <AppBar position="static">
         <Toolbar>
           <IconButton onClick={handleDrawerOpen} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            Bubble Network
+            BUBBLES SOCIAL NETWORK
           </Typography>
-          {auth && (
+          
             <div>
               <IconButton
                 aria-label="account of current user"
@@ -104,7 +98,8 @@ export default function MenuAppBar(props : any) {
                 onClick={handleMenu}
                 color="inherit"
               >
-                <AccountCircle /> {IsAuthenticated()? "user" : ""}
+                <AccountCircle />
+                {IsAuthenticated()? "Hello " + user?.userName : ""}
               </IconButton>
               {!IsAuthenticated()?
               <Menu
@@ -142,15 +137,15 @@ export default function MenuAppBar(props : any) {
                 onClose={handleClose}
               >
                 <MenuItem to="/UserWall" component={Link} > My Wall </MenuItem>
-                <MenuItem onClick={()=>{setToken(null)}}>SigOut</MenuItem> 
+                <MenuItem onClick={()=>{localStorage.removeItem("token"); localStorage.removeItem("user"); setToken(null); window.location.reload()}}>SigOut</MenuItem> 
               </Menu>
               } 
             </div>
-          )}
+          
         </Toolbar>
       </AppBar>
       {!IsAuthenticated() ? null :      
-        <SideBar openDrower={openDrower}></SideBar>
+        <SideBar openDrower={openDrower} setOpenDrower={setOpenDrower}></SideBar>
       }
     </div>
   );

@@ -1,7 +1,8 @@
 import { useState, createContext } from "react";
+import { loadUser } from "../api/auth";
 
-interface User{
-    name : string;
+export interface User{
+    userName : string;
 }
 
 export type UserContextType = {
@@ -15,15 +16,18 @@ export type TokenContextType = {
 }
 
 export const UserContext = createContext<UserContextType>({
-    user : {name: ""}, setUser: () =>{}});
+    user : JSON.parse(localStorage.getItem("user") ?? "null"), setUser: () =>{}});
 
 export const TokenContext = createContext<TokenContextType>({
-        token : null, setToken: () =>{}});
+        token : localStorage.getItem("token"), setToken: () =>{}});
 
 export const AuthProvider = (props : any) => {
-    //const [user, setUser] = useState({name : "Vasea"});
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem("user") ?? "null"));
     const [token, setToken] = useState(null);
+    
     return(
-        <TokenContext.Provider value = {{token, setToken}}>{props.children}</TokenContext.Provider>
+        <UserContext.Provider value = {{user, setUser}}>
+            <TokenContext.Provider value = {{token, setToken}}>{props.children}</TokenContext.Provider>
+        </UserContext.Provider>
     )
 }

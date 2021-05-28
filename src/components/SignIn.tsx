@@ -1,11 +1,11 @@
 import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, makeStyles, TextField, Theme, Typography, Link } from '@material-ui/core';
 import Alert from './Alert';
-import {resStatus} from '../api/proxy';
+import {fetchData, resStatus} from '../api/proxy';
 import { LockOutlined } from '@material-ui/icons';
 import { useContext, useState } from 'react';
 import { Link as RouterLink} from 'react-router-dom';
-import {login} from "../api/auth";
-import { TokenContext } from '../contexts/AuthProvider';
+import {GetUser, login} from "../api/auth";
+import { TokenContext, UserContext } from '../contexts/AuthProvider';
 
 const useStyles = makeStyles((theme: Theme) =>({
     paper: {
@@ -31,6 +31,7 @@ export default function SignIn(){
     const classes = useStyles();
     
     const {setToken} = useContext(TokenContext);
+    const {user, setUser} = useContext(UserContext);
     
 
     const handleSubmit = async (e : any) => {
@@ -41,6 +42,17 @@ export default function SignIn(){
         const responceData = await login(loginRequest);
         const {token} = await responceData;
         setToken(token);
+        localStorage.setItem("token", token)
+        
+
+
+        if(token){        
+            if(!user){
+                let userData = await fetchData(null, "/AuthorizationUser", "GET", {"Authorization" : `Bearer ${token}`});  
+                localStorage.setItem('user', JSON.stringify(userData));
+                setUser(userData);
+            }
+        } 
     }
 
     const [data, setData] = useState({message : null, status : null});

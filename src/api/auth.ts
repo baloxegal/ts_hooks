@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { TokenContext } from "../contexts/AuthProvider";
+import { TokenContext, UserContext } from "../contexts/AuthProvider";
 import {fetchData} from "./proxy"
 
 export const login = async (body : any) => {
@@ -16,12 +16,20 @@ export const hasToken = () => {
     return !!localStorage.getItem("token");
 }
 
-export const getUser = async () => {
-    const token =  localStorage.getItem("token");    
-    let data = await fetchData(null, "/UserProfile", "GET", {"Authorization" : `Bearer ${token}`});  
-    localStorage.setItem('user', JSON.stringify(data));
-    console.log(data); 
-    return data;
+export const loadUser = () => JSON.parse(localStorage.getItem("user") ?? "")
+
+
+export const GetUser = async () => {
+    const {token, setToken} = useContext(TokenContext);
+    const {user, setUser} = useContext(UserContext);
+    
+    if(token){        
+        if(!user){
+            let userData = await fetchData(null, "/AuthorizationUser", "GET", {"Authorization" : `Bearer ${token}`});  
+            localStorage.setItem('user', JSON.stringify(userData));
+            setUser(userData);
+        }
+    } 
 }
 
 export const getUserName = () => {
@@ -31,5 +39,5 @@ export const getUserName = () => {
 
 export const IsAuthenticated = () => {
     const {token} = useContext(TokenContext);
-    return token? true : false;
+    return token? true : localStorage.getItem("token");
 }

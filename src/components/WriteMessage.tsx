@@ -61,9 +61,7 @@ export default function WriteMessage(){
                     <Button type="submit" fullWidth variant="contained" color="primary"
                         className={classes.submit}>
                         SEND
-                    </Button>
-                    
-                    
+                    </Button>                    
 
                     <Alert type = {resStatus(data.status)} message = {data.message}/>
 

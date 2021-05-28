@@ -29,6 +29,9 @@ const Body = () => {
                         <Route path='/UserWall' component={UserWall}> 
                             {!IsAuthenticated()? <Redirect to="/SignIn" /> : undefined}
                         </Route>
+                        <Route path='/UserFriends' component={UserWall}> 
+                            {!IsAuthenticated()? <Redirect to="/UserFriends" /> : undefined}
+                        </Route>
                         <Route path='/ForgotPassword' component={ForgotPassword}/> 
                         <Route path='/WriteMessage' component={WriteMessage}/>
                         <Route path='/CreateEvent' component={CreateEvent}/>                

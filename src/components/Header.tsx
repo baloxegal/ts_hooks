@@ -6,7 +6,7 @@ export default function Header () {
     // const date = DateData();
 
     useEffect(() => {
-        document.title = "Bubble";
+        document.title = "Bubbles";
      });
 
     return(

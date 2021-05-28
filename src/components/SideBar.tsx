@@ -77,6 +77,7 @@ export default function SideBar(props : any) {
   const [openDrower, setOpenDrower] = React.useState(props.openDrower);
   const handleDrawerClose = () => {
     setOpenDrower(false);
+    props.setOpenDrower(false);
   };
 
   return (
@@ -126,6 +127,16 @@ export default function SideBar(props : any) {
               <ListItemText primary="Write Message" />
             </ListItem>
         </List>
+
+        <Divider />
+
+        <List>          
+          <ListItem to="/UserFriends" component={Link} button key="Friends">
+              <ListItemIcon> <EmojiEventsIcon /> </ListItemIcon>
+              <ListItemText primary="Friends" />
+            </ListItem>
+        </List>
+
       </Drawer>
   );
 }
