@@ -61,7 +61,7 @@ export default function UserList(){
 
     return(
         <div>
-            <div>MEET YOUR FRIENDS</div>
+            <div>MEET YOUR FUTURE FRIENDS</div>
             
             <div className={classes.root}>
             <List component="nav" aria-label="main mailbox folders">
